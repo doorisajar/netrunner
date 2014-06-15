@@ -24,9 +24,10 @@ download.octgn <- function( quietly = TRUE ) {
 #   Got a token, but the official way still throws a 404. ??? 
 
   path <- substr( path, start = 4, stop = nchar( path ) - 1 ) 
+  fields <- "?fields=downloadUrl"
+  key <- "?key=ya29.LgAHpoOw8iYIdSAAAAAOzgpFvdkOBWvhF_pytIT_H3nk4xiSwR_UAUkc2skzTA"
   octgn <- GET( url = "https://www.googleapis.com/drive/v2/files/", 
-                path = paste0(path,
-                              "?fields=downloadUrl&?key=ya29.LgAHpoOw8iYIdSAAAAAOzgpFvdkOBWvhF_pytIT_H3nk4xiSwR_UAUkc2skzTA" ) )  
+                path = paste0(path, fields, "&", key ) )  
 
 
 
