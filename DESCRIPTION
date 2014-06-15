@@ -1,9 +1,11 @@
 Package: netrunner
 Type: Package
-Title: Download, process, and analyze Android: Netrunner OCTGN data. 
+Title: Download, process, and analyze Android: Netrunner OCTGN data.
 Version: 0.1
 Date: 2014-06-14
 Author: "Raja Doake (rdoake@gmail.com" [aut, cre]
 Maintainer: Raja Doake <rdoake@gmail.com>
-Description: Download the latest Android: Netrunner OCTGN data released by dbzer0, keeper of all things Android: Netrunner OCTGN. Filter the data, rate players, and plot various features of the data. 
+Description: Download the latest Android: Netrunner OCTGN data released by
+    dbzer0, keeper of all things Android: Netrunner OCTGN. Filter the data,
+    rate players, and plot various features of the data.
 License: GPL-3
