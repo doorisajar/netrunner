@@ -3,12 +3,15 @@
 \alias{download.octgn}
 \title{Read in an Android: Netrunner OCTGN data file.}
 \usage{
-download.octgn(quietly = TRUE)
+download.octgn(write = FALSE)
 }
 \arguments{
-\item{quietly}{If TRUE, don't display any messages or a progress bar while downloading.}
+\item{write}{If TRUE, write the downloaded file out as a .csv.}
+}
+\value{
+octgn.df If \code{write = FALSE}, return the downloaded data as a data frame.
 }
 \description{
-This function downloads the latest Android: Netrunner OCTGN data file from http://octgn.gamersjudgment.net/
+This function downloads the latest Android: Netrunner OCTGN .csv data file from http://octgn.gamersjudgment.net/
 }
 

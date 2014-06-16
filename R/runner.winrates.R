@@ -11,11 +11,11 @@
 
 runner.winrates <- function( octgn.df, period = "pack" ) {
   
-  if ( period = "pack" ) {
+  if ( period == "pack" ) {
     
    octgn.df$Period <- octgn.df$Pack
     
-  } else if ( period = "week" | period = "month" | period = "year" ) {
+  } else if ( period == "week" | period == "month" | period == "year" ) {
   
     # Take the date floor of each period.   
     octgn.df$Period <- floor_date(octgn.df$GameStart, period)

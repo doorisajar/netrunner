@@ -8,4 +8,12 @@ Maintainer: Raja Doake <rdoake@gmail.com>
 Description: Download the latest Android: Netrunner OCTGN data released by
     dbzer0, keeper of all things Android: Netrunner OCTGN. Filter the data,
     rate players, and plot various features of the data.
+Depends: 
+    R (>= 3.1.0)
+Imports:
+    dplyr (>= 0.2.0),
+    stringr,
+    httr,
+    lubridate,
+    PlayerRatings
 License: GPL-3

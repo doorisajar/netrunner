@@ -13,6 +13,6 @@ octgn.df A data frame wrapped in dplyr::tbl_df for concise display.
 }
 \description{
 This function reads a .csv file of Android: Netrunner OCTGN data downloaded from http://octgn.gamersjudgement.com/wordpress/anr/statistics/.
-It returns a data frame. The .csv read call sets as.is = TRUE.
+It returns a data frame. To the existing columns, it adds a Win column where a Corporation win is TRUE and a Runner win is FALSE. This is used by the player rating function.
 }
 

@@ -16,7 +16,7 @@ download.octgn <- function( write = FALSE ) {
                     type = "text/csv"
                   ) 
 
-  if ( write = TRUE ) {
+  if ( write == TRUE ) {
     
     write.csv(file = "octgn.csv", col.names = FALSE)
   
