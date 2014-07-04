@@ -5,7 +5,8 @@
 #' @param octgn.df A data frame matching the structure produced by read.octgn(). 
 #' @param period A period over which to compute winrates. By default, \code{pack}, which computes winrates for the periods between each data pack release. Can also be time durations such as \code{week} or \code{month}.
 #' @return corpwins.df A data frame of Corporation IDs and winrates by period. 
-#' @import dplyr lubridate
+#' @import dplyr
+#' @importFrom lubridate floor_date
 #' 
 #' @export
 
@@ -28,7 +29,7 @@ corp.winrates <- function( octgn.df, period = "pack" ) {
   }
   
   corpwins.df <- octgn.df %>%
-                  group_by(CorpID, Period) %>%
+                  group_by(Corporation, Period) %>%
                   summarise(Games = n(),
                             Winrate = sum(Win) / Games
                   )

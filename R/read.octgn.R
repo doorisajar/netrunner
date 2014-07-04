@@ -4,12 +4,15 @@
 #' It returns a data frame. To the existing columns, it adds a Win column where a Corporation win is TRUE and a Runner win is FALSE. This is used by the player rating function. 
 #' 
 #' @param octgn.path A file path to a .csv file of OCTGN data.
+#' @param pack.rm Whether to remove games without data pack information. Defaults to TRUE. 
+#' @param id.rm A character vector of IDs to remove. Defaults to none. 
 #' @return octgn.df A data frame wrapped in dplyr::tbl_df for concise display. 
 #' @import dplyr
+#' @importFrom lubridate parse_date_time
 #' 
 #' @export
 
-read.octgn <- function( octgn.path ) {
+read.octgn <- function( octgn.path, pack.rm = TRUE, id.rm = c() ) {
   
   octgn.df <- read.csv(octgn.path, as.is = TRUE)
   octgn.df <- tbl_df(octgn.df)
@@ -56,7 +59,14 @@ read.octgn <- function( octgn.path ) {
     return( data.packs$Pack[match( substr(x, 1, 3), data.packs$Version )] )
   }
   
-  octgn.df <- mutate(octgn.df, Pack = CheckPack(octgn.df$Version, data.packs))
+  octgn.df <- octgn.df %>% 
+                mutate(Pack = CheckPack(octgn.df$Version, data.packs)) %>%
+                filter(!(Runner %in% id.rm | Corporation %in% id.rm))
+  
+  if (pack.rm == TRUE) {
+    octgn.df <- filter(octgn.df, Pack %in% levels(data.packs$Pack))
+  }
+
   
   
   return( octgn.df )

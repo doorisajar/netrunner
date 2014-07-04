@@ -3,18 +3,19 @@
 #' This function downloads the latest Android: Netrunner OCTGN .csv data file from http://octgn.gamersjudgment.net/
 #' 
 #' @param octgn.df A data frame produced by read.octgn(). 
-#' @param period A duration, such as \code{"week"} or \code{"month"}. Ratings are computed over each period. For ANR OCTGN data, \code{"week"} is generally best and is the defaut. 
+#' @param period.select A duration, such as \code{"week"} or \code{"month"}. Ratings are computed over each period. For ANR OCTGN data, \code{"week"} is generally best and is the defaut. 
 #' @param history If \code{TRUE}, save and return rating history in \code{player.ratings}.
 #' @param init Initialization parameters for the Glicko algorithm. By default, a 1500 initial rating and 350 deviation. 
 #' @return player.ratings A data frame of computed ratings, optionally with rating history.  
-#' @import lubridate PlayerRatings dplyr
+#' @import PlayerRatings dplyr
+#' @importFrom lubridate floor_date
 #' 
 #' @export
 
-rate.players <- function( octgn.df, period = "week", history = FALSE, init = c(1500, 350) ) {
+rate.players <- function( octgn.df, period.select = "week", history = FALSE, init = c(1500, 350) ) {
   
   # Take the date floor of each period to divide the games up for Glicko.   
-  octgn.df$Period <- floor_date(octgn.df$GameStart, period)
+  octgn.df$Period <- floor_date(octgn.df$GameStart, period.select)
   
   #-----------------------------------------------------------------------------
   # COMPUTING PLAYER RATINGS

@@ -2,5 +2,6 @@
 #'
 #'  @docType package
 #'  @name netrunner
-#'  @import httr stringr lubridate PlayerRatings dplyr
+#'  @import httr stringr PlayerRatings dplyr
+#'  @importFrom lubridate floor_date parse_date_time
 NULL

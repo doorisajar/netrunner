@@ -1,14 +1,15 @@
 #' Read in an Android: Netrunner OCTGN data file. 
 #'
-#' This function downloads the latest Android: Netrunner OCTGN .csv data file from http://octgn.gamersjudgment.net/
+#' This function downloads the latest Android: Netrunner OCTGN .csv data file from http://octgn.gamersjudgment.net/... or it will when it works. 
 #' 
 #' @param write If TRUE, write the downloaded file out as a .csv.  
 #' @return octgn.df If \code{write = FALSE}, return the downloaded data as a data frame. 
 #' @import httr stringr dplyr
-#' 
-#' @export
+
 
 download.octgn <- function( write = FALSE ) {
+  
+#   https://doc-00-4o-docs.googleusercontent.com/docs/securesc/ha0ro937gcuc7l7deffksulhg5h7mbp1/tr9ue5nv8i4a377l8ngq6lc5h7fkvkeh/1404496800000/07708637904532248706/*/0B-gMiPlH3rBANWVVZXR5OTBENlU?h=16653014193614665626&e=download
   
   octgn.df <- content( GET( url = "https://doc-00-4o-docs.googleusercontent.com/",
                          path = "docs/securesc/ha0ro937gcuc7l7deffksulhg5h7mbp1/v8rqrt2sp9hcbc2fqhjrstutsusqv19g/1402804800000/07708637904532248706/*/0B-gMiPlH3rBANWVVZXR5OTBENlU?h=16653014193614665626&e=download"
