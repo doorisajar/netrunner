@@ -78,7 +78,9 @@ get.data.packs <- function() {
   data.packs$Version[1] <- "2.0"
   data.packs$Version[11] <- "3.0"
   
-  data.packs <- rbind(data.packs, c("3.10", "Honor and Profit"), c("3.11", "Upstalk"))
+  data.packs <- rbind(data.packs, 
+                      c("3.10", "Honor and Profit"), 
+                      c("3.11", "Upstalk"))
   
   return( data.packs )
   

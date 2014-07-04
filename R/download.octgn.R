@@ -19,10 +19,11 @@ download.octgn <- function( write = FALSE ) {
   if ( write == TRUE ) {
     
     write.csv(file = "octgn.csv", col.names = FALSE)
+    invisible()
   
   } else {
     
-    return( octgn.df)
+    return( octgn.df )
   
   }
   
