@@ -12,6 +12,6 @@ download.octgn(write = FALSE)
 octgn.df If \code{write = FALSE}, return the downloaded data as a data frame.
 }
 \description{
-This function downloads the latest Android: Netrunner OCTGN .csv data file from http://octgn.gamersjudgment.net/
+This function downloads the latest Android: Netrunner OCTGN .csv data file from http://octgn.gamersjudgment.net/... or it will when it works.
 }
 
