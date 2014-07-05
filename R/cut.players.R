@@ -3,10 +3,23 @@
 #' This function downloads the latest Android: Netrunner OCTGN .csv data file from http://octgn.gamersjudgment.net/
 #' 
 #' @param player.ratings A data frame produced by rate.players(). 
-#' @param min.rating The minimum Glicko rating a player must have to be included. 
+#' @param min.rating The minimum Glicko rating a player must have to be included, by default 1500. 
+#' @param max.deviation The maximum Glicko deviation a player can have to be included, by default 150. 
+#' @param min.games The minimum number of games a player must have played to be included, by default 5. 
 #' @return player.ratings A data frame of computed ratings limited to players rated above \code{min.rating}.  
 #' @import dplyr
 #' 
 #' @export
 
-cut.players <- function( player.ratings, min.rating ) {}
+cut.players <- function( player.ratings, min.rating = 1500, max.deviation = 150, min.games = 5 ) {
+  
+  # Prune to > 5 games played. 
+  # This actually eliminates about 50% of the remaining players, so it's pretty common for OCTGN
+  # players to try it a few times and then quit. 
+  player.ratings <-  filter(player.ratings, Rating >= min.rating,
+                                            Deviation <= max.deviation,
+                                            Games >= min.games)
+  
+  return(player.ratings)
+  
+}
