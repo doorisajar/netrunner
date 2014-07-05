@@ -3,12 +3,17 @@
 \alias{cut.players}
 \title{Rate the players in a set of OCTGN data using Glicko.}
 \usage{
-\method{cut}{players}(player.ratings, min.rating)
+\method{cut}{players}(player.ratings, min.rating = 1500,
+  max.deviation = 150, min.games = 5)
 }
 \arguments{
 \item{player.ratings}{A data frame produced by rate.players().}
 
-\item{min.rating}{The minimum Glicko rating a player must have to be included.}
+\item{min.rating}{The minimum Glicko rating a player must have to be included, by default 1500.}
+
+\item{max.deviation}{The maximum Glicko deviation a player can have to be included, by default 150.}
+
+\item{min.games}{The minimum number of games a player must have played to be included, by default 5.}
 }
 \value{
 player.ratings A data frame of computed ratings limited to players rated above \code{min.rating}.
