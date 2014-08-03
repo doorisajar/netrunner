@@ -1,24 +1,26 @@
-#' Read in an Android: Netrunner OCTGN data file. 
-#'
-#' This function reads a .csv file of Android: Netrunner OCTGN data downloaded from http://octgn.gamersjudgement.com/wordpress/anr/statistics/. 
-#' It returns a data frame. To the existing columns, it adds a Win column where a Corporation win is TRUE and a Runner win is FALSE. This is used by the player rating function. 
+#' Read in an Android: Netrunner OCTGN data file.
+#' 
+#' This function reads a .csv file of Android: Netrunner OCTGN data downloaded
+#' from http://octgn.gamersjudgement.com/wordpress/anr/statistics/. It returns a
+#' data frame. To the existing columns, it adds a Win column where a Corporation
+#' win is TRUE and a Runner win is FALSE. This is used by the player rating
+#' function.
 #' 
 #' @param octgn.path A file path to a .csv file of OCTGN data.
-#' @param pack.rm Whether to remove games without data pack information. Defaults to TRUE. 
-#' @param id.rm A character vector of IDs to remove. Defaults to none. 
-#' @return octgn.df A data frame wrapped in dplyr::tbl_df for concise display. 
+#' @param pack.rm Whether to remove games without data pack information.
+#'   Defaults to TRUE.
+#' @param id.rm A character vector of IDs to remove. Defaults to 'Shaper: The Collective'. 
+#' @return octgn.df A data frame wrapped in dplyr::tbl_df for concise display.
 #' @import dplyr
 #' @importFrom lubridate parse_date_time
-#' 
+#'   
 #' @export
 
-read.octgn <- function( octgn.path, pack.rm = TRUE, id.rm = c() ) {
+read.octgn <- function( octgn.path, pack.rm = TRUE, id.rm = c('Shaper: The Collective') ) {
   
   octgn.df <- read.csv(octgn.path, as.is = TRUE)
   octgn.df <- tbl_df(octgn.df)
 
-  # Basic cleanup. This does eliminate 2012 games (about 12,000 of 156,000), because earlier versions
-  # didn't include the agenda count or deck size. 
   # The POSIXct conversion is to make it play nice with dplyr.
   octgn.df$GameStart <- parse_date_time(octgn.df$GameStart, "%Y%m%d %H%M%S")
   octgn.df$GameStart <- as.POSIXct(octgn.df$GameStart)

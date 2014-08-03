@@ -1,9 +1,11 @@
-#' Read in an Android: Netrunner OCTGN data file. 
-#'
-#' This function downloads the latest Android: Netrunner OCTGN .csv data file from http://octgn.gamersjudgment.net/... or it will when it works. 
+#' Read in an Android: Netrunner OCTGN data file.
 #' 
-#' @param write If TRUE, write the downloaded file out as a .csv.  
-#' @return octgn.df If \code{write = FALSE}, return the downloaded data as a data frame. 
+#' This function downloads the latest Android: Netrunner OCTGN .csv data file
+#' from http://octgn.gamersjudgment.net/... or it will when it works.
+#' 
+#' @param write If TRUE, write the downloaded file out as a .csv.
+#' @return octgn.df If \code{write = FALSE}, return the downloaded data as a
+#'   data frame.
 #' @import httr stringr dplyr
 
 
