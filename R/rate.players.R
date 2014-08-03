@@ -4,7 +4,7 @@
 #' using the Glicko algorithm. The Glicko period defaults to weekly, but monthly
 #' is also accepted. 
 #' 
-#' @param octgn.df A data frame produced by read.octgn().
+#' @param octgn A data frame produced by read.octgn().
 #' @param period.select A duration, such as \code{"week"} or \code{"month"}.
 #'   Ratings are computed over each period. For ANR OCTGN data, \code{"week"} is
 #'   generally best and is the defaut.
@@ -12,14 +12,14 @@
 #'   \code{player.ratings}.
 #' @param init Initialization parameters for the Glicko algorithm. By default, a
 #'   1500 initial rating and 350 deviation.
-#' @return player.ratings A data frame of computed ratings, optionally with
+#' @return A data frame of computed ratings, optionally with
 #'   rating history.
 #' @import PlayerRatings dplyr
 #' @importFrom lubridate floor_date
 #'   
 #' @export
 
-rate.players <- function( octgn.df, period.select = "week", history = FALSE, init = c(1500, 350) ) {
+rate.players <- function( octgn, period.select = "week", history = FALSE, init = c(1500, 350) ) {
   
   # Take the date floor of each period to divide the games up for Glicko.   
   octgn.df$Period <- floor_date(octgn.df$GameStart, period.select)

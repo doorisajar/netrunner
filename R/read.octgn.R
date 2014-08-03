@@ -10,7 +10,7 @@
 #' @param pack.rm Whether to remove games without data pack information.
 #'   Defaults to TRUE.
 #' @param id.rm A character vector of IDs to remove. Defaults to 'Shaper: The Collective'. 
-#' @return octgn.df A data frame wrapped in dplyr::tbl_df for concise display.
+#' @return A data frame wrapped in dplyr::tbl_df for concise display.
 #' @import dplyr
 #' @importFrom lubridate parse_date_time
 #'   

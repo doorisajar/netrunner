@@ -14,7 +14,7 @@ Defaults to TRUE.}
 \item{id.rm}{A character vector of IDs to remove. Defaults to 'Shaper: The Collective'.}
 }
 \value{
-octgn.df A data frame wrapped in dplyr::tbl_df for concise display.
+A data frame wrapped in dplyr::tbl_df for concise display.
 }
 \description{
 This function reads a .csv file of Android: Netrunner OCTGN data downloaded

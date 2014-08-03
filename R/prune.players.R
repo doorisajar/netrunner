@@ -11,7 +11,7 @@
 #'   included, by default 150.
 #' @param min.games The minimum number of games a player must have played to be
 #'   included, by default 5.
-#' @return player.ratings A data frame of computed ratings limited to players
+#' @return A data frame of computed ratings limited to players
 #'   rated above \code{min.rating}.
 #' @import dplyr
 #'   

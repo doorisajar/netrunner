@@ -4,8 +4,8 @@
 #' from http://octgn.gamersjudgment.net/... or it will when it works.
 #' 
 #' @param write If TRUE, write the downloaded file out as a .csv.
-#' @return octgn.df If \code{write = FALSE}, return the downloaded data as a
-#'   data frame.
+#' @return If \code{write = FALSE}, return the downloaded data as a
+#'   data frame. Otherwise, write a CSV file. 
 #' @import httr stringr dplyr
 
 

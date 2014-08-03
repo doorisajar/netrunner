@@ -3,11 +3,11 @@
 \alias{rate.players}
 \title{Rate the players in a set of OCTGN data using Glicko.}
 \usage{
-rate.players(octgn.df, period.select = "week", history = FALSE,
+rate.players(octgn, period.select = "week", history = FALSE,
   init = c(1500, 350))
 }
 \arguments{
-\item{octgn.df}{A data frame produced by read.octgn().}
+\item{octgn}{A data frame produced by read.octgn().}
 
 \item{period.select}{A duration, such as \code{"week"} or \code{"month"}.
 Ratings are computed over each period. For ANR OCTGN data, \code{"week"} is
@@ -20,7 +20,7 @@ generally best and is the defaut.}
 1500 initial rating and 350 deviation.}
 }
 \value{
-player.ratings A data frame of computed ratings, optionally with
+A data frame of computed ratings, optionally with
   rating history.
 }
 \description{

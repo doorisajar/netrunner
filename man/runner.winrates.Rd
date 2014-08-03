@@ -3,15 +3,15 @@
 \alias{runner.winrates}
 \title{Compute winrates for Runner IDs in a set of games.}
 \usage{
-runner.winrates(octgn.df, period = "pack")
+runner.winrates(octgn, period = "pack")
 }
 \arguments{
-\item{octgn.df}{A data frame matching the structure produced by read.octgn().}
+\item{octgn}{A data frame matching the structure produced by read.octgn().}
 
 \item{period}{A period over which to compute winrates. By default, \code{pack}, which computes winrates for the periods between each data pack release. Can also be time durations such as \code{week} or \code{month}.}
 }
 \value{
-runwins.df A data frame of Runner IDs and winrates by period.
+A data frame of Runner IDs and winrates by period.
 }
 \description{
 This function takes a set of games provided in a data frame and computes the winrates for each Runner ID in the data during specified periods of time.

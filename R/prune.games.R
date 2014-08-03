@@ -5,7 +5,7 @@
 #' @param octgn A data frame of OCTGN data. 
 #' @param players A data frame of player IDs. Defaults to NULL. 
 #' @param keep Whether to keep the designated IDs (TRUE) or remove them (FALSE). Defaults to FALSE. 
-#' @return octgn A data frame of OCTGN data with the designated players removed.
+#' @return A data frame of OCTGN data with the designated players removed.
 #' @import dplyr
 #'   
 #' @export

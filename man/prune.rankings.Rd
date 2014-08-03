@@ -19,7 +19,7 @@ included, by default 150.}
 included, by default 5.}
 }
 \value{
-player.ratings A data frame of computed ratings limited to players
+A data frame of computed ratings limited to players
   rated above \code{min.rating}.
 }
 \description{

@@ -13,7 +13,7 @@ prune.games(octgn, players = NULL, keep = FALSE)
 \item{keep}{Whether to keep the designated IDs (TRUE) or remove them (FALSE). Defaults to FALSE.}
 }
 \value{
-octgn A data frame of OCTGN data with the designated players removed.
+A data frame of OCTGN data with the designated players removed.
 }
 \description{
 This function reads a set of OCTGN data and a set of player IDs, then

@@ -9,8 +9,8 @@ download.octgn(write = FALSE)
 \item{write}{If TRUE, write the downloaded file out as a .csv.}
 }
 \value{
-octgn.df If \code{write = FALSE}, return the downloaded data as a
-  data frame.
+If \code{write = FALSE}, return the downloaded data as a
+  data frame. Otherwise, write a CSV file.
 }
 \description{
 This function downloads the latest Android: Netrunner OCTGN .csv data file
