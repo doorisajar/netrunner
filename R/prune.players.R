@@ -17,7 +17,7 @@
 #'   
 #' @export
 
-prune.players <- function( player.ratings, min.rating = 1500, max.deviation = 150, min.games = 5 ) {
+prune.rankings <- function( player.ratings, min.rating = 1500, max.deviation = 150, min.games = 5 ) {
   
   # Prune to > 5 games played. 
   # This actually eliminates about 50% of the remaining players, so it's pretty common for OCTGN
