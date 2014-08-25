@@ -29,7 +29,7 @@ matchups <- function(octgn, period = "pack") {
   
   
   matchups.df <- octgn %>%
-                    group_by(Corporation, Runner, Pack) %>%
+                    group_by(Corporation, Runner, Period) %>%
                     summarise(CorpWins = sum(Win) / length(Win),
                               RunWins = 1 - CorpWins,
                               Games = n())
