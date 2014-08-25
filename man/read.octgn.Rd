@@ -3,7 +3,7 @@
 \alias{read.octgn}
 \title{Read in an Android: Netrunner OCTGN data file.}
 \usage{
-read.octgn(octgn.path, pack.rm = TRUE, id.rm = c("Shaper: The Collective"))
+read.octgn(octgn.path, pack.rm = TRUE, id.rm = c("Shaper | The Collective"))
 }
 \arguments{
 \item{octgn.path}{A file path to a .csv file of OCTGN data.}

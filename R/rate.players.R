@@ -22,7 +22,7 @@
 rate.players <- function( octgn, period.select = "week", history = FALSE, init = c(1500, 350) ) {
   
   # Take the date floor of each period to divide the games up for Glicko.   
-  octgn.df$Period <- floor_date(octgn.df$GameStart, period.select)
+  octgn$Period <- floor_date(octgn$GameStart, period.select)
   
   #-----------------------------------------------------------------------------
   # COMPUTING PLAYER RATINGS
@@ -33,7 +33,7 @@ rate.players <- function( octgn, period.select = "week", history = FALSE, init =
   # 2. Numeric or character identifier for player one. 
   # 3. Numeric or character identifier for player two.
   # 4. The result of the game expressed as numeric -- 1 for P1 win, 0 for P2 win, 0.5 for draw.   
-  ratings <- select(octgn.df, Period, Corp_Player, Runner_Player, Win)
+  ratings <- select(octgn, Period, Corp_Player, Runner_Player, Win)
   
   # Convert Win/Loss factor to 1/0. 
   ratings$Win <- as.numeric(ratings$Win)

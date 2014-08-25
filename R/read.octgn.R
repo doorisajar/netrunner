@@ -16,7 +16,7 @@
 #'   
 #' @export
 
-read.octgn <- function( octgn.path, pack.rm = TRUE, id.rm = c('Shaper: The Collective') ) {
+read.octgn <- function( octgn.path, pack.rm = TRUE, id.rm = c('Shaper | The Collective') ) {
   
   octgn.df <- read.csv(octgn.path, as.is = TRUE)
   octgn.df <- tbl_df(octgn.df)

@@ -1,18 +1,17 @@
-#' Compute winrates for Corporation IDs in a set of games.
+#' Compute matchup winrates by ID over a set of games. 
 #'
-#' This function takes a set of games provided in a data frame and computes the winrates for each Corporation ID in the data during specified periods of time. 
-#' 
+#' This function takes a set of games provided in a data frame and computes the winrates for each ID against each ID on the other side. 
+#'
 #' @param octgn A data frame matching the structure produced by read.octgn(). 
 #' @param period A period over which to compute winrates. By default, \code{pack}, which computes winrates for the periods between each data pack release. Can also be time durations such as \code{week} or \code{month}.
-#' @return A data frame of Corporation IDs and winrates by period. 
+#' @return A data frame of IDs and matchup winrates by period. 
 #' @import dplyr
 #' @importFrom lubridate floor_date
 #' 
 #' @export
 
+matchups <- function(octgn, period = "pack") {
 
-corp.winrates <- function( octgn, period = "pack" ) {
-  
   if ( period == "pack" ) {
     
     octgn$Period <- octgn$Pack
@@ -28,12 +27,13 @@ corp.winrates <- function( octgn, period = "pack" ) {
     
   }
   
-  corpwins.df <- octgn %>%
-                  group_by(Corporation, Period) %>%
-                  summarise(Games = n(),
-                            Winrate = sum(Win) / Games
-                  )
   
-  return(corpwins.df)
-  
+  matchups.df <- octgn %>%
+                    group_by(Corporation, Runner, Pack) %>%
+                    summarise(CorpWins = sum(Win) / length(Win),
+                              RunWins = 1 - CorpWins,
+                              Games = n())
+
+  return(matchups.df)
+
 }
