@@ -24,6 +24,7 @@ matchups <- function(octgn, period = "pack") {
   } else {
     
     message("Period argument not accepted, please use pack, week, month, or year.")
+    return()
     
   }
   
