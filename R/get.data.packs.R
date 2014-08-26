@@ -4,6 +4,7 @@
 #' 
 #' @return A data frame listing each data pack with its version number as an ordered factor. 
 #' @import dplyr
+#' @importFrom stringr str_pad
 
 get.data.packs <- function() {
   
@@ -78,9 +79,12 @@ get.data.packs <- function() {
   data.packs$Version[1] <- "2.0"
   data.packs$Version[11] <- "3.0"
   
+  
   data.packs <- rbind(data.packs, 
                       c("3.10", "Honor and Profit"), 
                       c("3.11", "Upstalk"))
+  
+  data.packs$Version <- str_pad(string = data.packs$Version, width = 4, side = "right", pad = ".")
   
   return( data.packs )
   

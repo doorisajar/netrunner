@@ -50,15 +50,15 @@ read.octgn <- function( octgn.path, pack.rm = TRUE, id.rm = c('Shaper | The Coll
   # Need to match the versions in this df to the versions in octgn.df. 
   # Follow this form:
   #
-  # substr(octgn.df$Version[1], 1, 3)
+  # substr(octgn.df$Version[1], 1, 4)
   # 
-  # For each 1:3 chars in octgn.df$Version, I want to match with data.packs$Version and populate a new
+  # For each 1:4 chars in octgn.df$Version, I want to match with data.packs$Version and populate a new
   # column in octgn.df with the associated data pack. 
   #
-  # Write a simple match function to take a character string of the form "x.x" and return the most recent
+  # Write a simple match function to take a character string of the form "x.xx" and return the most recent
   # data pack. 
   CheckPack <- function(x, data.packs) {
-    return( data.packs$Pack[match( substr(x, 1, 3), data.packs$Version )] )
+    return( data.packs$Pack[match( substr(x, 1, 4), data.packs$Version )] )
   }
   
   octgn.df <- octgn.df %>% 
