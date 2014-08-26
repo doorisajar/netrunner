@@ -4,13 +4,13 @@
 #' 
 #' @param octgn A data frame of OCTGN data. 
 #' @param players A data frame of player IDs. Defaults to NULL. 
-#' @param keep Whether to keep the designated IDs (TRUE) or remove them (FALSE). Defaults to FALSE. 
+#' @param keep Whether to keep the designated IDs (TRUE) or remove them (FALSE). Defaults to TRUE. 
 #' @return A data frame of OCTGN data with the designated players removed.
 #' @import dplyr
 #'   
 #' @export
 
-prune.games <- function( octgn, players = NULL, keep = FALSE ) {
+prune.games <- function( octgn, players = NULL, keep = TRUE ) {
  
   if ( keep == FALSE ) {
 

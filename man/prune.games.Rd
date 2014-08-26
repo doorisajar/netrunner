@@ -3,14 +3,14 @@
 \alias{prune.games}
 \title{Remove players from a set of OCTGN data.}
 \usage{
-prune.games(octgn, players = NULL, keep = FALSE)
+prune.games(octgn, players = NULL, keep = TRUE)
 }
 \arguments{
 \item{octgn}{A data frame of OCTGN data.}
 
 \item{players}{A data frame of player IDs. Defaults to NULL.}
 
-\item{keep}{Whether to keep the designated IDs (TRUE) or remove them (FALSE). Defaults to FALSE.}
+\item{keep}{Whether to keep the designated IDs (TRUE) or remove them (FALSE). Defaults to TRUE.}
 }
 \value{
 A data frame of OCTGN data with the designated players removed.
