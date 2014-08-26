@@ -3,8 +3,7 @@
 #' Create a data frame with the data pack as an ordered factor and the version number associated with it. Needs to be updated with each OCTGN version; would be very nice if it scraped db0's GitHub NEWS page and updated itself accordingly. 
 #' 
 #' @return A data frame listing each data pack with its version number as an ordered factor. 
-#' @import dplyr
-#' @importFrom stringr str_pad
+#' @import dplyr stringr
 
 get.data.packs <- function() {
   
