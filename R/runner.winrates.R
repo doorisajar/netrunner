@@ -14,12 +14,12 @@ runner.winrates <- function( octgn, period = "pack" ) {
   
   if ( period == "pack" ) {
     
-   octgn.df$Period <- octgn.df$Pack
+   octgn$Period <- octgn$Pack
     
   } else if ( period == "week" | period == "month" | period == "year" ) {
   
     # Take the date floor of each period.   
-    octgn.df$Period <- floor_date(octgn.df$GameStart, period)
+    octgn$Period <- floor_date(octgn$GameStart, period)
 
   } else {
     
@@ -28,7 +28,7 @@ runner.winrates <- function( octgn, period = "pack" ) {
   }
   
   
-  runwins.df <- octgn.df %>% 
+  runwins.df <- octgn %>% 
                  tbl_df() %>%
                  group_by(Runner, Period) %>%
                  summarise(Games = n(),
