@@ -12,7 +12,7 @@
 #'   \code{player.ratings}.
 #' @param init Initialization parameters for the Glicko algorithm. By default, a
 #'   1500 initial rating and 350 deviation.
-#' @return A data frame of computed ratings, optionally with
+#' @return A list containing a data frame of computed ratings, optionally with
 #'   rating history.
 #' @import PlayerRatings dplyr
 #' @importFrom lubridate floor_date
@@ -46,8 +46,6 @@ rate.players <- function( octgn, period.select = "week", history = FALSE, init =
   ratings <- glicko(ratings, history = history, sort = TRUE, init = init)
   
   # Now I have ratings for each player in each period. 
-  player.ratings <- tbl_df(ratings$ratings)
-  
-  return( player.ratings )
+  return( ratings )
   
 }
