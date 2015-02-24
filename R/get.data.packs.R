@@ -81,7 +81,13 @@ get.data.packs <- function() {
   
   data.packs <- rbind(data.packs, 
                       c("3.10", "Honor and Profit"), 
-                      c("3.11", "Upstalk"))
+                      c("3.11", "Upstalk"),
+                      c("3.12", "The Spaces Between"),
+                      c("3.13", "First Contact"),
+                      c("3.14", "Up and Over"),
+                      c("3.15", "All that Remains"),
+                      c("3.16", "The Source"),
+                      c("3.17", "Order and Chaos"))
   
   data.packs$Version <- str_pad(string = data.packs$Version, width = 4, side = "right", pad = ".")
   
