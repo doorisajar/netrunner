@@ -9,31 +9,44 @@ vignette: >
   %\usepackage[utf8]{inputenc}
 ---
 
-Vignettes are long form documentation commonly included in packages. Because they are part of the distribution of the package, they need to be as compact as possible. The `html_vignette` output type provides a custom style sheet (and tweaks some options) to ensure that the resulting html is as small as possible. The `html_vignette` format:
+## Introduction
 
-- Never uses retina figures
-- Has a smaller default figure size
-- Uses a custom CSS stylesheet instead of the default Twitter Bootstrap style
 
-## Vignette Info
-
-Note the various macros within the `vignette` setion of the metadata block above. These are required in order to instruct R how to build the vignette. Note that you should change the `title` field and the `\VignetteIndexEntry` to match the title of your vignette.
-
-## Styles
-
-The `html_vignette` template includes a basic CSS theme. To override this theme you can specify your own CSS in the document metadata as follows:
-
-    output: 
-      rmarkdown::html_vignette:
-        css: mystyles.css
 
 ## Figures
 
 The figure sizes have been customised so that you can easily put two images side-by-side. 
 
 ```{r, fig.show='hold'}
-plot(1:10)
-plot(10:1)
+library(netrunner)
+
+octgn <- read.octgn("~/Downloads/OCTGN_stats_anonymized-2015-02-20.csv")
+
+ratings <- rate.players(octgn)
+sig1 <- prune.players(ratings, min.rating = mean(ratings$Rating, na.rm = TRUE) + sd(ratings$Rating, na.rm = TRUE), max.deviation = 200, min.games = 5)
+sig1.games <- prune.games(octgn, sig1$Player)
+
+
+loyal.corp <- octgn.game10 %>% 
+  inner_join(., ratings[, 1:2], by = c("Runner_Player" = "Player")) %>%
+  group_by(Corp_Player, Corporation) %>%
+  summarise(Games = n(), 
+            Winrate = sum(Win, na.rm = TRUE) / Games,
+            Opp_Rating = mean(Rating)) %>%
+  mutate(Loyalty =  Games[which.max(Games)] / sum(Games, na.rm = TRUE)) %>%
+  ungroup() %>%
+  group_by(Corp_Player) %>%
+  summarise(Games = sum(Games), 
+            Winrate = floor(mean(Winrate * Games)) / Games,
+            Loyalty = mean(Loyalty),
+            Opp_Rating = mean(Opp_Rating)) %>%
+  filter(Games > 20)
+
+ggplot(loyal.corp, aes(Loyalty, Winrate)) +
+  geom_point(aes(color = loyal.corp$Opp_Rating, alpha = 0.4)) +
+#   scale_colour_gradient2(low = muted("red"), high = muted("blue")) + 
+  xlab("Corp Loyalty") +
+  ylab("Corp Winrate")
 ```
 
 You can enable figure captions by `fig_caption: yes` in YAML:
@@ -46,13 +59,136 @@ Then you can use the chunk option `fig.cap = "Your figure caption."` in **knitr*
 
 ## More Examples
 
-You can write math expressions, e.g. $Y = X\beta + \epsilon$, footnotes^[A footnote here.], and tables, e.g. using `knitr::kable()`.
+```{r, fig.show='hold'}
 
-```{r, echo=FALSE, results='asis'}
-knitr::kable(head(mtcars, 10))
+library(netrunner)
+
+octgn <- read.octgn("~/Dropbox/Personal/Netrunner/OCTGN_stats_anonymized-2014-08-25.csv")
+
+octgn$Period <- floor_date(octgn$GameStart, "month")
+
+octgn$Period %<>% cut(breaks = "month") %>% as.numeric()
+
+results <- list()
+plots <- list()
+  
+for ( i in seq_along(unique(octgn$Period)) ) {
+
+  games <- filter(octgn, Period == i)
+  
+  ratings <- octgn %>% 
+#     group_by(Period) %>%
+    mutate(Win = as.numeric(Win)) %>%
+    select(Period, Corp_Player, Runner_Player, Win) %>%
+    glicko(history = FALSE, sort = TRUE, init = c(1500, 350))
+  
+  sig1 <- prune.players(ratings$ratings, min.rating = min(ratings$ratings$Rating, na.rm = TRUE), max.deviation = 200, min.games = 5)
+  sig1.games <- prune.games(games, sig1$Player)
+
+
+  loyal.corp <- sig1.games %>% 
+    inner_join(., ratings$ratings[, 1:2], by = c("Runner_Player" = "Player")) %>%
+    group_by(Corp_Player, Corporation) %>%
+    summarise(Games = n(), 
+              Winrate = sum(Win, na.rm = TRUE) / Games,
+              Opp_Rating = mean(Rating)) %>%
+    mutate(Loyalty =  Games[which.max(Games)] / sum(Games, na.rm = TRUE)) %>%
+    ungroup() %>%
+    group_by(Corp_Player) %>%
+    summarise(Games = sum(Games), 
+              Winrate = floor(mean(Winrate * Games)) / Games,
+              Loyalty = mean(Loyalty),
+              Opp_Rating = mean(Opp_Rating)) %>%
+    filter(Games > 20)
+
+  ggplot(loyal.corp, aes(Loyalty, Winrate)) +
+    geom_point(aes(color = loyal.corp$Opp_Rating, alpha = 0.4)) +
+  #   scale_colour_gradient2(low = muted("red"), high = muted("blue")) + 
+    xlab("Corp Loyalty") +
+    ylab("Corp Winrate")
+  
+  ggsave(filename = paste0("~/Dropbox/Personal/Netrunner/package/plots/loyalty_period_", i, ".png"))
+
+  results[[i]] <- loyal.corp
+  
+}
+
 ```
 
-Also a quote using `>`:
+Looks like no aggregate effect even within smaller periods. Next question is whether someone who is initially not loyal has more success in periods where they are loyal. 
 
-> "He who gives up [code] safety for [code] speed deserves neither."
-([via](https://twitter.com/hadleywickham/status/504368538874703872))
+```{r, fig.show='hold'}
+
+library(netrunner)
+library(lubridate)
+
+octgn <- read.octgn("~/Downloads/OCTGN_stats_anonymized-2015-02-20.csv", 
+                    id.rm = c('Shaper | The Collective', 'Criminal | Laramy Fisk'))
+
+octgn$Period <- floor_date(octgn$GameStart, "month")
+
+octgn$Period %<>% cut(breaks = "month") %>% as.numeric()
+
+ratings <- rate.players(octgn, history = TRUE, period.select = "month")
+
+min5 <- prune.players(ratings$ratings, 
+                      min.rating = min(ratings$ratings$Rating, na.rm = TRUE), 
+                      max.deviation = 200,
+                      min.games = 5)
+
+octgn <- prune.games(octgn, players = min5$Player, keep = TRUE)
+
+ratings <- rate.players(octgn, history = TRUE, period.select = "month")
+
+
+lag.rating <- function(id, Period) { as.list(ratings$history[which(ratings$ratings$Player == id), Period, 1]) }
+
+ids <- unique(ratings$ratings$Player)
+
+lags <- lapply(ids, FUN = lag.rating, Period = c(1:26))
+
+lags <- rbindlist(lags)
+
+lags$Player <- ids
+
+lags <- as.data.frame(lags)
+
+lags <- lags[c("Player", as.character(1:26))]
+
+octgn %<>% inner_join(., lags, by = c("Corp_Player" = "Player"))
+
+# octgn %<>% inner_join(., lags, by = c("Runner_Player" = "Player"))
+
+cl <- octgn %>%
+  tbl_df() %>%
+  group_by(Period, Corp_Player, Corp_Faction) %>%
+  mutate(Games = n()) %>%
+  ungroup() %>%
+  group_by(Period, Corp_Player) %>%
+  mutate(Loyalty = Games[which.max(Games)] / n()) %>%
+  filter(Games > 10)
+
+for ( i in 2 : (length(unique(octgn$Period)) - 1) ) {
+
+  data <- filter(cl, Period == i)
+  
+  data$delta <- data[, i + 24] - data[, i + 23]
+
+  message(cor(data$Loyalty, data$delta))
+  
+  ggplot(data, aes_string(x = "Loyalty", y = paste0("`", i + 1, "`"))) +
+    geom_point() +
+    xlab("Corp Loyalty in Period X") +
+    ylab("Corp Rating in Period X + 1")
+
+  ggsave(filename = paste0("~/Dropbox/Personal/Netrunner/package/plots/corp_loyalty_delta_", i, ".png"))
+  
+  # Next, plot loyalty vs games played to see if loyal people play more (or the reverse)
+  # Plot loyalty vs change in rating from period X to period X + 1
+  
+  
+  
+}
+  
+```
+
