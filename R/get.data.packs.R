@@ -69,7 +69,13 @@ get.data.packs <- function() {
                                                 "Fear and Loathing",
                                                 "Double Time",
                                                 "Honor and Profit",
-                                                "Upstalk"
+                                                "Upstalk",
+                                                "The Spaces Between",
+                                                "First Contact",
+                                                "Up and Over",
+                                                "All that Remains",
+                                                "The Source",
+                                                "Order and Chaos"
   )
   )
   
