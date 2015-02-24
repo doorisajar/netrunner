@@ -30,8 +30,8 @@ read.octgn <- function( octgn.path, pack.rm = TRUE, id.rm = c('Shaper | The Coll
   octgn.df$Runner_Player <- as.numeric(octgn.df$Runner_Player)
   
   # Coerce identities to factors. "Player_Faction" denotes Corp, "Opponent_Faction" denotes Runner.  
-  octgn.df$Corp_Player <- as.factor(octgn.df$Corp_Player)
-  octgn.df$Runner_Player      <- as.factor(octgn.df$Runner_Player)
+  octgn.df$Corp_Faction <- as.factor(octgn.df$Corp_Faction)
+  octgn.df$Runner_Faction <- as.factor(octgn.df$Runner_Faction)
   
   # There are six possible outcomes:
   # Corp Loss: Agenda Defeat, Deck Defeat, Conceded
@@ -63,7 +63,7 @@ read.octgn <- function( octgn.path, pack.rm = TRUE, id.rm = c('Shaper | The Coll
   
   octgn.df <- octgn.df %>% 
                 mutate(Pack = CheckPack(octgn.df$Version, data.packs)) %>%
-                filter(!(Runner_Player %in% id.rm | Corp_Player %in% id.rm))
+                filter(!(Runner_Faction %in% id.rm | Corp_Faction %in% id.rm))
   
   if (pack.rm == TRUE) {
     octgn.df <- filter(octgn.df, Pack %in% levels(data.packs$Pack))
